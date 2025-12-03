@@ -21,21 +21,38 @@ class LoginController
             $_SESSION['user_role'] = $user['id_rol']; // Guarda el rol del usuario
 
             // Redirige según el rol (usar rutas relativas para evitar 404 si la app no está en la raíz)
-            switch ($user['id_rol']) {
-                case 1:
-                    header("Location: ./views/admin.php");
-                    break;
-                case 2:
-                    header("Location: ./views/client.php");
-                    break;
-                default:
-                    header("Location: ./views/error.php");
-            }
-            exit;
+            $this->redirectByRole($user['id_rol']);
         } else {
             // Redirige de forma relativa al directorio `public`
             header("Location: ./views/login.php?error=1"); // Redirige si falla
             exit;
         }
+    }
+
+    public function logout()
+    {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+        session_unset();
+        session_destroy();
+        // Redirigir al formulario de login después de cerrar sesión
+        header("Location: ./index.php");
+        exit;
+    }
+
+    public function redirectByRole($role)
+    {
+        switch ($role) {
+            case 1:
+                header("Location: ./views/admin.php");
+                break;
+            case 2:
+                header("Location: ./views/client.php");
+                break;
+            default:
+                header("Location: ./views/error.php");
+        }
+        exit;
     }
 }

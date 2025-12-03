@@ -1,13 +1,26 @@
 <?php
+session_start(); // SIEMPRE al inicio
+
 require_once __DIR__ . '/../src/config/conexion.php';
 require_once __DIR__ . '/../src/controllers/loginController.php';
 
 $db = conectar(); // Función que devuelve la conexión PDO
 $controller = new LoginController($db);
 
-// Comprobar que 'action' esté definido para evitar notices y errores
-if (isset($_GET['action']) && $_GET['action'] === 'login' && $_SERVER['REQUEST_METHOD'] === 'POST') {
-  $controller->login($_POST['email'], $_POST['password']);
+// Procesar acciones explícitas (login/logout) antes de redirigir según la sesión
+if (isset($_GET['action'])) {
+  if ($_GET['action'] === 'logout') {
+    $controller->logout();
+  }
+
+  if ($_GET['action'] === 'login' && $_SERVER['REQUEST_METHOD'] === 'POST') {
+    $controller->login($_POST['email'], $_POST['password']);
+  }
+}
+
+// Si ya hay sesión activa, reutilizar el método del controlador
+if (isset($_SESSION['user_role'])) {
+  $controller->redirectByRole($_SESSION['user_role']);
 }
 
 ?>
