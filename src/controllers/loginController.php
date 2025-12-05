@@ -13,9 +13,9 @@ class LoginController
     public function login($email, $password)
     {
         $user = $this->userModel->getUserByEmail($email); // Busca el usuario
-        //password_verify($password, $user['password'])
 
-        if ($user && $password === $user['password']) { //comprueba la contraseña con su hash
+
+        if ($user && password_verify($password, $user['password'])) { //comprueba la contraseña con su hash
             session_start(); // Inicia la sesión
             $_SESSION['user_id'] = $user['id']; // Guarda el ID del usuario
             $_SESSION['user_role'] = $user['id_rol']; // Guarda el rol del usuario
@@ -23,7 +23,7 @@ class LoginController
             // Redirige según el rol (usar rutas relativas para evitar 404 si la app no está en la raíz)
             $this->redirectByRole($user['id_rol']);
         } else {
-            // Redirige de forma relativa al directorio `public`
+
             header("Location: ./views/login.php?error=1"); // Redirige si falla
             exit;
         }
@@ -36,7 +36,7 @@ class LoginController
         }
         session_unset();
         session_destroy();
-        // Redirigir al formulario de login después de cerrar sesión
+        // Redirigir al index después de cerrar sesión
         header("Location: ./index.php");
         exit;
     }

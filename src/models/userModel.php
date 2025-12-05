@@ -17,4 +17,20 @@ class UserModel
         $stmt->execute(); // Ejecuta la consulta
         return $stmt->fetch(PDO::FETCH_ASSOC); // Devuelve el usuario como array asociativo
     }
+
+    //INSERT INTO `usuario` (`id`, `id_rol`, `nombre`, `email`, `telefono`, `password`) VALUES (NULL, '2', 'Mary', 'mary@gmail.com', '1111111111', '1234');
+
+    public function registerUser($username, $email, $telefono, $password)
+    {
+        $hashedPassword = password_hash($password, PASSWORD_BCRYPT); // Hashea la contraseña
+        $rol = 2; // Rol de cliente por defecto
+        $query = "INSERT INTO usuario (id_rol, nombre, email, telefono, password) VALUES (:role, :username, :email, :telefono, :password)";
+        $stmt = $this->db->prepare($query);
+        $stmt->bindParam(':role', $rol);
+        $stmt->bindParam(':username', $username);
+        $stmt->bindParam(':email', $email);
+        $stmt->bindParam(':telefono', $telefono);
+        $stmt->bindParam(':password', $hashedPassword);
+        return $stmt->execute(); // Devuelve true si la inserción fue exitosa
+    }
 }
