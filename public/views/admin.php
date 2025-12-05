@@ -9,6 +9,8 @@
 
 <body>
     Bienvenido admin
+
+    <a href="../auth.php?action=logout">Cerrar sesión</a>
 </body>
 
 </html>
