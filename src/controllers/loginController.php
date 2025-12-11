@@ -45,13 +45,14 @@ class LoginController
     {
         switch ($role) {
             case 1:
-                header("Location: ./views/admin.php");
+                header("Location: ./views/admin/home.php");
                 break;
             case 2:
-                header("Location: ./views/client.php");
+                header("Location: ./views/client/home.php");
                 break;
             default:
-                header("Location: ./views/error.php");
+                echo "Rol de usuario no reconocido.";
+                exit;
         }
         exit;
     }

@@ -18,8 +18,6 @@ class UserModel
         return $stmt->fetch(PDO::FETCH_ASSOC); // Devuelve el usuario como array asociativo
     }
 
-    //INSERT INTO `usuario` (`id`, `id_rol`, `nombre`, `email`, `telefono`, `password`) VALUES (NULL, '2', 'Mary', 'mary@gmail.com', '1111111111', '1234');
-
     public function registerUser($username, $email, $telefono, $password)
     {
         $hashedPassword = password_hash($password, PASSWORD_BCRYPT); // Hashea la contraseña

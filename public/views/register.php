@@ -9,7 +9,7 @@
 
 <body>
     <h2>Crear cuenta</h2>
-    <form action="../auth.php?action=registerUser" method="post">
+    <form action="../index.php?action=registerUser" method="post">
         <label for="username">Nombre de usuario:</label><br>
         <input type="text" id="username" name="username" required><br><br>
 
