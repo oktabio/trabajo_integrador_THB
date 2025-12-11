@@ -8,7 +8,7 @@ class productController
 
     public function __construct($db)
     {
-        $this->productModel = new productModel($db);
+        $this->productModel = new ProductModel($db);
     }
 
     public function createProduct()

@@ -1,7 +1,7 @@
 <?php
 
-require_once __DIR__ . '/../controllers/loginController.php';
-require_once __DIR__ . '/../controllers/registerController.php';
+require_once __DIR__ . '/loginController.php';
+require_once __DIR__ . '/registerController.php';
 
 class AuthController
 {
