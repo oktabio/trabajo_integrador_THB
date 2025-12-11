@@ -8,3 +8,4 @@ $action = $_POST['action'] ?? $_GET['action'] ?? '';
 
 require_once __DIR__ . '/../src/routes/auth.php';
 require_once __DIR__ . '/../src/routes/web.php';
+0
